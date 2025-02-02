@@ -18,11 +18,7 @@ import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
 
-<<<<<<< HEAD
-router.get('/contacts', ctrlWrapper(getAllContactsController));
-=======
 router.use(authenticate);
->>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
 
 router.get('/', ctrlWrapper(getAllContactsController));
 
@@ -35,24 +31,12 @@ router.post(
 );
 
 router.patch(
-<<<<<<< HEAD
-  '/contacts/:contactId',
-=======
   '/:contactId',
->>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
   isValidId,
   validateBody(updateContactSchema),
   ctrlWrapper(patchContactController),
 );
 
-<<<<<<< HEAD
-router.delete(
-  '/contacts/:contactId',
-  isValidId,
-  ctrlWrapper(deleteContactController),
-);
-=======
 router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
->>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
 
 export default router;
