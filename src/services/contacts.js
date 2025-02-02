@@ -5,7 +5,7 @@ import { calculatePaginationData } from "../utils/calculatePaginationData.js";
 export const getAllContacts = async ({
   page = 1,
   perPage = 10,
-  sortOrder = SORT_ORDER[0],
+  sortOrder = SORT_ORDER.ASC,
   sortBy = "_id",
   filter = {},
 }) => {
@@ -35,7 +35,7 @@ export const getAllContacts = async ({
       .exec(),
   ]);
 
-  const paginationData = calculatePaginationData(contactsCount, page, perPage);
+  const paginationData = calculatePaginationData(contactsCount, perPage, page);
 
   return {
     data: contacts,

@@ -7,7 +7,7 @@ const parseSortOrder = (sortOrder) => {
     return sortOrder;
   }
 
-  return SORT_ORDER[0];
+  return SORT_ORDER.ASC;
 };
 
 const parseSortBy = (sortBy, sortByList) => {

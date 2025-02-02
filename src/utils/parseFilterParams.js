@@ -1,40 +1,30 @@
-import { CONTACT_TYPES } from "../contacts/index.js";
+const parseContactType = (contactType) => {
+  const isString = typeof contactType === 'string';
+  if (!isString) return;
 
-const parseContactType = (type) => {
-  const isString = typeof type === "string";
-  if (!isString) {
-    return;
-  }
-
-  const isContactType = (contactType) => CONTACT_TYPES.includes(contactType);
-
-  if (isContactType(type)) {
-    return type;
-  }
+  const isType = (contactType) =>
+    ['work', 'home', 'personal'].includes(contactType);
+  if (isType(contactType)) return contactType;
 };
 
-const parseIsFavourite = (favourite) => {
-  const isString = typeof favourite === "string";
-  if (!isString) {
-    return;
-  }
+const parseIsFavourite = (isFavourite) => {
+  const isString = typeof isFavourite === 'string';
+  if (!isString) return;
 
-  const isFavourite = (favourite) => ["true", "false"].includes(favourite);
+  const isKnown = ['true', 'false'].includes(isFavourite);
+  if (!isKnown) return;
 
-  if (isFavourite(favourite)) {
-    return favourite;
-  }
+  return isFavourite === 'true';
 };
 
 export const parseFilterParams = (query) => {
-  const { type, isFavourite, name } = query;
+  const { contactType, isFavourite } = query;
 
-  const parsedType = parseContactType(type);
+  const parsedType = parseContactType(contactType);
   const parsedIsFavourite = parseIsFavourite(isFavourite);
 
   return {
     type: parsedType,
     isFavourite: parsedIsFavourite,
-    name,
   };
 };
