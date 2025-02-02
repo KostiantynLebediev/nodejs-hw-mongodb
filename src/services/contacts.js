@@ -3,6 +3,7 @@ import { contactsCollection } from '../db/models/contacts.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
 export const getAllContacts = async ({
+  userId,
   page = 1,
   perPage = 10,
   sortOrder = SORT_ORDER.ASC,
@@ -12,7 +13,11 @@ export const getAllContacts = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
+<<<<<<< HEAD
   const contactsQuery = contactsCollection.find();
+=======
+  const contactsQuery = contactsCollection.find({ userId });
+>>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
 
   if (filter.type) {
     contactsQuery.where('contactType').equals(filter.type);
@@ -31,15 +36,22 @@ export const getAllContacts = async ({
       .sort({ [sortBy]: sortOrder })
       .exec(),
   ]);
+  
+const paginationData = calculatePaginationData(countContacts, page, perPage);
 
+<<<<<<< HEAD
   const paginationData = calculatePaginationData(countContacts, page, perPage);
 
   return {
+=======
+return {
+>>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
     data: contacts,
     ...paginationData,
   };
 };
 
+<<<<<<< HEAD
 export const getContactById = async (contactId) => {
   const contact = await contactsCollection.findById(contactId);
   return contact;
@@ -54,6 +66,33 @@ export const updateContact = async (contactId, payload, options = {}) => {
   const result = await contactsCollection.findOneAndUpdate(
     { _id: contactId },
     payload,
+=======
+export const getContactById = async (contactId, userId) => {
+  const contact = await contactsCollection.findOne({ _id: contactId, userId });
+  return contact;
+};
+
+export const addContact = async (contact, userId) => {
+  const addedContact = await contactsCollection.create({
+    ...contact,
+    userId,
+  });
+  return addedContact;
+};
+
+export const updateContact = async (
+  contactId,
+  userId,
+  contact,
+  options = {},
+) => {
+  const result = await contactsCollection.findOneAndUpdate(
+    {
+      _id: contactId,
+      userId,
+    },
+    contact,
+>>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
     {
       new: true,
       includeResultMetadata: true,
@@ -69,9 +108,16 @@ export const updateContact = async (contactId, payload, options = {}) => {
   };
 };
 
+<<<<<<< HEAD
 export const deleteContact = async (contactId) => {
   const deletedContact = await contactsCollection.findOneAndDelete({
     _id: contactId,
+=======
+export const deleteContact = async (contactId, userId) => {
+  const deletedContact = await contactsCollection.findOneAndDelete({
+    _id: contactId,
+    userId,
+>>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
   });
   return deletedContact;
 };
