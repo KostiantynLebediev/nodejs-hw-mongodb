@@ -1,5 +1,4 @@
-import { Schema, model } from "mongoose";
-import { CONTACT_TYPES } from "../../contacts/index.js";
+import { Schema, model } from 'mongoose';
 
 const contactSchema = new Schema(
   {
@@ -17,13 +16,12 @@ const contactSchema = new Schema(
     isFavourite: {
       type: Boolean,
       default: false,
-      required: true,
     },
     contactType: {
       type: String,
-      enum: CONTACT_TYPES,
-      default: "personal",
+      enum: ['work', 'home', 'personal'],
       required: true,
+      default: 'personal',
     },
   },
   {
@@ -32,6 +30,4 @@ const contactSchema = new Schema(
   },
 );
 
-export const CONTACT_KEYS = Object.keys(contactSchema.paths);
-
-export const ContactsCollection = model("contact", contactSchema);
+export const contactsCollection = model('contacts', contactSchema);
