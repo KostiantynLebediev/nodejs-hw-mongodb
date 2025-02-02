@@ -13,7 +13,11 @@ export const getAllContacts = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
+<<<<<<< HEAD
+  const contactsQuery = contactsCollection.find();
+=======
   const contactsQuery = contactsCollection.find({ userId });
+>>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
 
   if (filter.type) {
     contactsQuery.where('contactType').equals(filter.type);
@@ -35,12 +39,34 @@ export const getAllContacts = async ({
   
 const paginationData = calculatePaginationData(countContacts, page, perPage);
 
+<<<<<<< HEAD
+  const paginationData = calculatePaginationData(countContacts, page, perPage);
+
+  return {
+=======
 return {
+>>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
     data: contacts,
     ...paginationData,
   };
 };
 
+<<<<<<< HEAD
+export const getContactById = async (contactId) => {
+  const contact = await contactsCollection.findById(contactId);
+  return contact;
+};
+
+export const addContact = async (payload) => {
+  const addedContact = await contactsCollection.create(payload);
+  return addedContact;
+};
+
+export const updateContact = async (contactId, payload, options = {}) => {
+  const result = await contactsCollection.findOneAndUpdate(
+    { _id: contactId },
+    payload,
+=======
 export const getContactById = async (contactId, userId) => {
   const contact = await contactsCollection.findOne({ _id: contactId, userId });
   return contact;
@@ -66,6 +92,7 @@ export const updateContact = async (
       userId,
     },
     contact,
+>>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
     {
       new: true,
       includeResultMetadata: true,
@@ -81,10 +108,16 @@ export const updateContact = async (
   };
 };
 
+<<<<<<< HEAD
+export const deleteContact = async (contactId) => {
+  const deletedContact = await contactsCollection.findOneAndDelete({
+    _id: contactId,
+=======
 export const deleteContact = async (contactId, userId) => {
   const deletedContact = await contactsCollection.findOneAndDelete({
     _id: contactId,
     userId,
+>>>>>>> b097a7bc73adc20cddf884fcce3d1ba8cd211cfc
   });
   return deletedContact;
 };
